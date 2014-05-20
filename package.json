@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "recast": "^0.5",
+    "esprima-fb": "3001.1.0-dev-harmony-fb"
+  },
+  "devDependencies": {
+    "mocha": "^1.19",
+    "chai": "^1.9"
+  }
+}
