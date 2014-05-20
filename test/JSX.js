@@ -36,16 +36,16 @@ describe('JSX', function() {
   });
 
   it('should fix self closing tags', function() {
-    expectTransform('<X />', 'X(null, null);');
+    expectTransform('<X />', 'X(null);');
   });
 
   it('should fix self closing tags with props', function() {
-    expectTransform('<X prop="1" />', 'X({\n  prop: "1"\n}, null);');
+    expectTransform('<X prop="1" />', 'X({\n  prop: "1"\n});');
   });
 
   it('should fix tags with children', function() {
-    expectTransform('<X prop="2"><Y /></X>', 'X({\n  prop: "2"\n}, Y(null, null));');
-    expectTransform('<X prop="2"><Y /><Z /></X>', 'X({\n  prop: "2"\n}, [Y(null, null), Z(null, null)]);');
+    expectTransform('<X prop="2"><Y /></X>', 'X({\n  prop: "2"\n}, Y(null));');
+    expectTransform('<X prop="2"><Y /><Z /></X>', 'X({\n  prop: "2"\n}, [Y(null), Z(null)]);');
   });
 
   it('should fix tags with literals', function() {
@@ -67,7 +67,7 @@ describe('JSX', function() {
       'X({',
       '  prop: (x ? Y({',
       '    prop: 2',
-      '  }, null) : Z(null, \"\\n\"))',
+      '  }) : Z(null, \"\\n\"))',
       '}, null);'
     ].join('\n');
 
