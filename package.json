@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "through": "^2.3",
-    "recast": "git+https://github.com/vslinko-forks/recast.git",
+    "recast": "^0.5",
     "esprima-fb": "3001.1.0-dev-harmony-fb"
   },
   "devDependencies": {
