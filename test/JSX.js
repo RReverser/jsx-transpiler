@@ -11,8 +11,15 @@ describe('JSX', function() {
     return compile(code).code;
   }
 
-  function expectTransform(code, result) {
+  function expectRawTransform(code, result) {
     expect(transform(code)).to.eql(result);
+  }
+
+  function expectTransform(code, result) {
+    code = '/** @jsx React.DOM */' + code;
+    code = transform(code);
+    code = code.replace('/** @jsx React.DOM */', '');
+    expect(code).to.eql(result);
   }
 
   it('should fix simple tags', function() {
@@ -72,5 +79,10 @@ describe('JSX', function() {
     ].join('\n');
 
     expectTransform(code, result);
+  });
+
+  it('should read jsx annotation', function() {
+    expectRawTransform('<a></a>', '<a></a>');
+    expectRawTransform('/** @jsx CUSTOM_DOM */<a></a>', '/** @jsx CUSTOM_DOM */CUSTOM_DOM.a(null, null);');
   });
 });
