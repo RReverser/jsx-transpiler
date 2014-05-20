@@ -1,8 +1,12 @@
 {
+  "name": "jsx-recast",
+  "version": "0.1.0",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha"
   },
   "dependencies": {
+    "through": "^2.3",
     "recast": "git+https://github.com/vslinko-forks/recast.git",
     "esprima-fb": "3001.1.0-dev-harmony-fb"
   },

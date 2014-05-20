@@ -3,18 +3,12 @@ var esprima = require('esprima-fb');
 var recast = require('recast');
 var util = require('util');
 
-var JSX = require('../lib/JSX');
+var compile = require('..').compile;
 var knownTags = require('../lib/knownTags');
 
 describe('JSX', function() {
   function transform(code) {
-    var ast = recast.parse(code, {
-      esprima: esprima
-    });
-
-    (new JSX()).visit(ast);
-
-    return recast.print(ast).code;
+    return compile(code).code;
   }
 
   function expectTransform(code, result) {
