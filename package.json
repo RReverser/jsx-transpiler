@@ -3,7 +3,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "recast": "^0.5",
+    "recast": "git+https://github.com/vslinko-forks/recast.git",
     "esprima-fb": "3001.1.0-dev-harmony-fb"
   },
   "devDependencies": {

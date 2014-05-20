@@ -56,9 +56,9 @@ describe('JSX', function() {
 
   it('should fix tags with literals', function() {
     expectTransform('<X>   </X>', 'X(null, "   ");');
-    expectTransform('<X>\n</X>', 'X(null, "\\u000a");');
-    expectTransform('<X>\n  string\n</X>', 'X(null, "\\u000a  string\\u000a");');
-    expectTransform('<X>\n  string\n  string\n  </X>', 'X(null, "\\u000a  string\\u000a  string\\u000a  ");');
+    expectTransform('<X>\n</X>', 'X(null, "\\n");');
+    expectTransform('<X>\n  string\n</X>', 'X(null, "\\n  string\\n");');
+    expectTransform('<X>\n  string\n  string\n  </X>', 'X(null, "\\n  string\\n  string\\n  ");');
   });
 
   it('should fix expressions', function() {
@@ -73,7 +73,7 @@ describe('JSX', function() {
       'X({',
       '  prop: (x ? Y({',
       '    prop: 2',
-      '  }, null) : Z(null, \"\\u000a\"))',
+      '  }, null) : Z(null, \"\\n\"))',
       '}, null);'
     ].join('\n');
 
