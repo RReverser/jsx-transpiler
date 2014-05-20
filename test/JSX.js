@@ -60,4 +60,23 @@ describe('JSX', function() {
     expectTransform('<X>\n  string\n</X>', 'X(null, "\\u000a  string\\u000a");');
     expectTransform('<X>\n  string\n  string\n  </X>', 'X(null, "\\u000a  string\\u000a  string\\u000a  ");');
   });
+
+  it('should fix expressions', function() {
+    expectTransform('<X>{a}</X>', 'X(null, a);');
+    expectTransform('<X>{a} {b}</X>', 'X(null, [a, " ", b]);');
+    expectTransform('<X prop={a}></X>', 'X({\n  prop: a\n}, null);');
+  });
+
+  it('should fix everything', function() {
+    var code = '<X prop={x ? <Y prop={2} /> : <Z>\n</Z>}></X>';
+    var result = [
+      'X({',
+      '  prop: (x ? Y({',
+      '    prop: 2',
+      '  }, null) : Z(null, \"\\u000a\"))',
+      '}, null);'
+    ].join('\n');
+
+    expectTransform(code, result);
+  });
 });
