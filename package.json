@@ -6,9 +6,9 @@
     "test": "mocha"
   },
   "dependencies": {
-    "through": "^2.3",
+    "esprima-fb": "^4001.1.0-dev-harmony-fb",
     "recast": "^0.5",
-    "esprima-fb": "3001.1.0-dev-harmony-fb"
+    "through": "^2.3"
   },
   "devDependencies": {
     "mocha": "^1.19",

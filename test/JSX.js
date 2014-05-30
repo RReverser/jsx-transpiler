@@ -23,7 +23,7 @@ describe('JSX', function() {
   }
 
   it('should fix simple tags', function() {
-    expectTransform('<X></X>', 'X(null, null);');
+    expectTransform('<X></X>', 'X(null, null)');
   });
 
   it('should fix known tags with React.DOM prefix', function() {
@@ -31,51 +31,51 @@ describe('JSX', function() {
       if (knownTags[knownTag]) {
         expectTransform(
           util.format('<%s></%s>', knownTag, knownTag),
-          util.format('React.DOM.%s(null, null);', knownTag)
+          util.format('React.DOM.%s(null, null)', knownTag)
         );
       } else {
         expectTransform(
           util.format('<%s></%s>', knownTag, knownTag),
-          util.format('%s(null, null);', knownTag)
+          util.format('%s(null, null)', knownTag)
         );
       }
     });
   });
 
   it('should fix self closing tags', function() {
-    expectTransform('<X />', 'X(null);');
+    expectTransform('<X />', 'X(null)');
   });
 
   it('should fix self closing tags with props', function() {
-    expectTransform('<X prop="1" />', 'X({\n  prop: "1"\n});');
+    expectTransform('<X prop="1" />', 'X({\n  prop: "1"\n})');
   });
 
   it('should fix tags with children', function() {
-    expectTransform('<X prop="2"><Y /></X>', 'X({\n  prop: "2"\n}, Y(null));');
-    expectTransform('<X prop="2"><Y /><Z /></X>', 'X({\n  prop: "2"\n}, [Y(null), Z(null)]);');
+    expectTransform('<X prop="2"><Y /></X>', 'X({\n  prop: "2"\n}, Y(null))');
+    expectTransform('<X prop="2"><Y /><Z /></X>', 'X({\n  prop: "2"\n}, [Y(null), Z(null)])');
   });
 
   it('should fix tags with literals', function() {
-    expectTransform('<X>   </X>', 'X(null, "   ");');
-    expectTransform('<X>\n</X>', 'X(null, "\\n");');
-    expectTransform('<X>\n  string\n</X>', 'X(null, "\\n  string\\n");');
-    expectTransform('<X>\n  string\n  string\n  </X>', 'X(null, "\\n  string\\n  string\\n  ");');
+    expectTransform('<X>   </X>', 'X(null, "   ")');
+    expectTransform('<X>\n</X>', 'X(null, "\\n")');
+    expectTransform('<X>\n  string\n</X>', 'X(null, "\\n  string\\n")');
+    expectTransform('<X>\n  string\n  string\n  </X>', 'X(null, "\\n  string\\n  string\\n  ")');
   });
 
   it('should fix expressions', function() {
-    expectTransform('<X>{a}</X>', 'X(null, a);');
-    expectTransform('<X>{a} {b}</X>', 'X(null, [a, " ", b]);');
-    expectTransform('<X prop={a}></X>', 'X({\n  prop: a\n}, null);');
+    expectTransform('<X>{a}</X>', 'X(null, a)');
+    expectTransform('<X>{a} {b}</X>', 'X(null, [a, " ", b])');
+    expectTransform('<X prop={a}></X>', 'X({\n  prop: a\n}, null)');
   });
 
   it('should fix everything', function() {
     var code = '<X prop={x ? <Y prop={2} /> : <Z>\n</Z>}></X>';
     var result = [
       'X({',
-      '  prop: (x ? Y({',
+      '  prop: x ? Y({',
       '    prop: 2',
-      '  }) : Z(null, \"\\n\"))',
-      '}, null);'
+      '  }) : Z(null, \"\\n\")',
+      '}, null)'
     ].join('\n');
 
     expectTransform(code, result);
@@ -83,6 +83,6 @@ describe('JSX', function() {
 
   it('should read jsx annotation', function() {
     expectRawTransform('<a></a>', '<a></a>');
-    expectRawTransform('/** @jsx CUSTOM_DOM */<a></a>', '/** @jsx CUSTOM_DOM */CUSTOM_DOM.a(null, null);');
+    expectRawTransform('/** @jsx CUSTOM_DOM */<a></a>', '/** @jsx CUSTOM_DOM */CUSTOM_DOM.a(null, null)');
   });
 });
