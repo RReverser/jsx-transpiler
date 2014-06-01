@@ -17,12 +17,12 @@ describe('JSX', function () {
 	function expectTransform(code, result) {
 		code = '/** @jsx React.DOM */' + code;
 		code = transform(code);
-		code = code.replace('/** @jsx React.DOM */', '');
+		code = code.replace('/** @jsx React.DOM */\n', '');
 		expect(code).to.eql(result);
 	}
 
 	it('should fix simple tags', function () {
-		expectTransform('<X></X>', 'X(null, null);');
+		expectTransform('<X></X>', 'X(null);');
 	});
 
 	it('should fix known tags with React.DOM prefix', function () {
@@ -30,12 +30,12 @@ describe('JSX', function () {
 			if (knownTags[knownTag]) {
 				expectTransform(
 					util.format('<%s></%s>', knownTag, knownTag),
-					util.format('React.DOM.%s(null, null);', knownTag)
+					util.format('React.DOM.%s(null);', knownTag)
 				);
 			} else {
 				expectTransform(
 					util.format('<%s></%s>', knownTag, knownTag),
-					util.format('%s(null, null);', knownTag)
+					util.format('%s(null);', knownTag)
 				);
 			}
 		});
@@ -64,14 +64,14 @@ describe('JSX', function () {
 	it('should fix expressions', function () {
 		expectTransform('<X>{a}</X>', 'X(null, a);');
 		expectTransform('<X>{a} {b}</X>', 'X(null, [\n    a,\n    \' \',\n    b\n]);');
-		expectTransform('<X prop={a}></X>', 'X({ prop: a }, null);');
+		expectTransform('<X prop={a}></X>', 'X({ prop: a });');
 	});
 
 	it('should fix everything', function () {
-		expectTransform('<X prop={x ? <Y prop={2} /> : <Z>\n</Z>}></X>', 'X({ prop: x ? Y({ prop: 2 }) : Z(null, \'\\n\') }, null);');
+		expectTransform('<X prop={x ? <Y prop={2} /> : <Z>\n</Z>}></X>', 'X({ prop: x ? Y({ prop: 2 }) : Z(null, \'\\n\') });');
 	});
 
-	it.only('should read jsx annotation', function () {
-		expectRawTransform('/** @jsx CUSTOM_DOM */<a></a>', '/** @jsx CUSTOM_DOM */\nCUSTOM_DOM.a(null, null);');
+	it('should read jsx annotation', function () {
+		expectRawTransform('/** @jsx CUSTOM_DOM */<a></a>', '/** @jsx CUSTOM_DOM */\nCUSTOM_DOM.a(null);');
 	});
 });
