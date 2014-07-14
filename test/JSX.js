@@ -1,5 +1,4 @@
 var expect = require('chai').expect;
-var esprima = require('esprima-fb');
 var util = require('util');
 
 var compile = require('..').compile;
@@ -68,7 +67,7 @@ describe('JSX', function () {
 	});
 
 	it('should fix everything', function () {
-		expectTransform('<X prop={x ? <Y prop={2} /> : <Z>\n</Z>}></X>', 'X({ prop: x ? Y({ prop: 2 }) : Z(null, \'\\n\') });');
+		expectTransform('<X data-prop={x ? <Y prop={2} /> : <Z>\n</Z>}></X>', 'X({ \'data-prop\': x ? Y({ prop: 2 }) : Z(null, \'\\n\') });');
 	});
 
 	it('should read jsx annotation', function () {
