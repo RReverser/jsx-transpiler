@@ -1,4 +1,4 @@
-var expect = require('chai').expect;
+var assert = require('assert');
 var util = require('util');
 
 var compile = require('..').compile;
@@ -10,14 +10,14 @@ describe('JSX', function () {
 	}
 
 	function expectRawTransform(code, result) {
-		expect(transform(code)).to.eql(result);
+		assert.equal(transform(code), result);
 	}
 
 	function expectTransform(code, result) {
-		code = '/** @jsx React.DOM */' + code;
-		code = transform(code);
-		code = code.replace('/** @jsx React.DOM */\n', '');
-		expect(code).to.eql(result);
+		expectRawTransform(
+			'/** @jsx React.DOM */' + code,
+			'/** @jsx React.DOM */\n' + result
+		);
 	}
 
 	it('should fix simple tags', function () {
