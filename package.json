@@ -16,7 +16,7 @@
     "javascript"
   ],
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter spec test/test"
   },
   "dependencies": {
     "acorn-jsx": "~0.6.1-3",
