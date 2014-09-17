@@ -63,7 +63,7 @@ describe('JSX', function () {
 	it('should fix expressions', function () {
 		expectTransform('<X>{a}</X>', 'X(null, a);');
 		expectTransform('<X>{a} {b}</X>', 'X(null, [\n    a,\n    \' \',\n    b\n]);');
-		expectTransform('<X prop={a}></X>', 'X({ prop: a });');
+		expectTransform('<X prop={a} yes></X>', 'X({\n    prop: a,\n    yes: true\n});');
 	});
 
 	it('should fix everything', function () {

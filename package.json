@@ -1,6 +1,6 @@
 {
   "name": "jsx-transpiler",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "main": "lib/index.js",
   "description": "Parses and compiles JSX code to JavaScript AST or code.",
   "repository": "RReverser/jsx-transpiler",
