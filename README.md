@@ -1,5 +1,11 @@
 # jsx-transpiler
 
+## Note
+
+This tool is no longer maintained as it was superseded by [6to5 transpiler](http://6to5.org/) which also uses [acorn-jsx](https://github.com/RReverser/acorn-jsx) under the hood and transpiles both ES6 and JSX syntax to ES5.
+
+------------------
+
 This is fork of [jsx-recast](https://github.com/vslinko/jsx-recast) that uses native and fast AST tools:
 
 * [acorn-jsx](https://github.com/RReverser/acorn-jsx) for parsing JSX code to JSX AST.
